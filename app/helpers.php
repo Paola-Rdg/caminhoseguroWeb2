@@ -18,3 +18,16 @@ function asset(string $path): string
     $version = is_file($file) ? filemtime($file) : time();
     return BASE_URL . '/' . ltrim($path, '/') . '?v=' . $version;
 }
+function format_cpf(?string $cpf): string
+{
+    $cpf = (string) $cpf;
+    return strlen($cpf) === 11
+        ? substr($cpf, 0, 3) . '.' . substr($cpf, 3, 3) . '.' . substr($cpf, 6, 3) . '-' . substr($cpf, 9, 2)
+        : $cpf;
+}
+
+function format_date(?string $date): string
+{
+    $d = $date ? \DateTime::createFromFormat('Y-m-d', $date) : false;
+    return $d ? $d->format('d/m/Y') : '';
+}

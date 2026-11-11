@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\User;
@@ -6,14 +7,38 @@ use App\Validators\UserValidator;
 
 class UserController
 {
+    private function userInput(): array
+    {
+        return [
+            'name'       => trim($_POST['name'] ?? ''),
+            'last_name'  => trim($_POST['last_name'] ?? ''),
+            'email'      => trim($_POST['email'] ?? ''),
+            'cpf'        => preg_replace('/\D/', '', $_POST['cpf'] ?? ''),
+            'birth_date' => trim($_POST['birth_date'] ?? ''),
+        ];
+    }
+
+    private function validateUser(array $input, ?int $ignoreId = null): array
+    {
+        $errors = (new UserValidator())->validate($input);
+        if (!isset($errors['email']) && User::emailExists($input['email'], $ignoreId)) {
+            $errors['email'] = 'Este e-mail já está cadastrado.';
+        }
+        if (!isset($errors['cpf']) && User::cpfExists($input['cpf'], $ignoreId)) {
+            $errors['cpf'] = 'Este CPF já está cadastrado.';
+        }
+        return $errors;
+    }
+
     public function index(): void
     {
-
+        $users = User::all();
         $this->render('users/index', [
-            'title' => 'Usuários',
-            'users' => User::all(),
+            'title' => 'Lista de usuários',
+            'users' => $users,
         ]);
     }
+
     public function show(string $id = ''): void
     {
         $user = User::find((int) $id);
@@ -22,7 +47,7 @@ class UserController
             exit('Usuário não encontrado');
         }
         $this->render('users/index', [
-            'title' => 'Usuário',
+            'title' => 'Detalhes do usuário',
             'users' => [$user],
         ]);
     }
@@ -30,10 +55,10 @@ class UserController
     public function create(): void
     {
         $this->render('users/form', [
-            'title' => 'Novo usuário',
+            'title'  => 'Novo usuário',
             'errors' => [],
-            'old' => [],
-            'csrf' => $this->csrfToken(),
+            'old'    => [],
+            'csrf'   => $this->csrfToken(),
         ]);
     }
 
@@ -45,42 +70,87 @@ class UserController
         }
         $this->checkCsrf();
 
-        $input = [
-            'name' => trim($_POST['name'] ?? ''),
-            'email' => trim($_POST['email'] ?? ''),
-        ];
-
-        $errors = (new UserValidator())->validate($input);
-        if (!$errors && User::emailExists($input['email'])) {
-            $errors['email'] = 'Este e-mail já está cadastrado.';
-        }
+        $input = $this->userInput();
+        $errors = $this->validateUser($input);
 
         if ($errors) {
             http_response_code(422);
             $this->render('users/form', [
-                'title' => 'Novo usuário',
+                'title'  => 'Novo usuário',
                 'errors' => $errors,
-                'old' => $input,
-                'csrf' => $this->csrfToken(),
+                'old'    => $input,
+                'csrf'   => $this->csrfToken(),
             ]);
             return;
         }
 
-        User::create($input['name'], $input['email']);
+        User::create($input['name'], $input['last_name'], $input['email'], $input['cpf'], $input['birth_date']);
+        header('Location: ' . url('user/index'));
+        exit;
+    }
+
+    public function edit(string $id = ''): void
+    {
+        $user = User::find((int) $id);
+        if (!$user) {
+            http_response_code(404);
+            exit('Usuário não encontrado');
+        }
+        $this->render('users/edit', [
+            'title'  => 'Editar usuário',
+            'user'   => $user,
+            'errors' => [],
+            'old'    => $user,
+            'csrf'   => $this->csrfToken(),
+        ]);
+    }
+
+    public function update(string $id = ''): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            exit('Método não permitido');
+        }
+        $this->checkCsrf();
+
+        $user = User::find((int) $id);
+        if (!$user) {
+            http_response_code(404);
+            exit('Usuário não encontrado');
+        }
+
+        $input = $this->userInput();
+        $errors = $this->validateUser($input, (int) $user['id']);
+
+        if ($errors) {
+            http_response_code(422);
+            $this->render('users/edit', [
+                'title'  => 'Editar usuário',
+                'user'   => $user,
+                'errors' => $errors,
+                'old'    => $input,
+                'csrf'   => $this->csrfToken(),
+            ]);
+            return;
+        }
+
+        User::update((int) $user['id'], $input);
         header('Location: ' . url('user/index'));
         exit;
     }
 
     private function csrfToken(): string
     {
-        session_status() === PHP_SESSION_NONE && session_start();
-        return $_SESSION['csrf'] ??= bin2hex(random_bytes(32));
+        if (empty($_SESSION['csrf'])) {
+            $_SESSION['csrf'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf'];
     }
 
     private function checkCsrf(): void
     {
-        session_status() === PHP_SESSION_NONE && session_start();
-        if (!hash_equals($_SESSION['csrf'] ?? '', $_POST['csrf'] ?? '')) {
+        $token = $_POST['csrf'] ?? '';
+        if (!isset($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], $token)) {
             http_response_code(403);
             exit('Token inválido');
         }
@@ -88,17 +158,7 @@ class UserController
 
     private function render(string $view, array $data = []): void
     {
-        $base = __DIR__ . '/../Views/';
-        $renderFile = static function (string $__file, array $__data):
-            string {
-            extract($__data, EXTR_SKIP);
-            ob_start();
-            require $__file;
-            return ob_get_clean();
-        };
-
-        $content = $renderFile($base . $view . '.php', $data);
-        $vars = $data + ['content' => $content];
-        echo $renderFile($base . 'layouts/main.php', $vars);
+        extract($data);
+        require __DIR__ . '/../Views/layouts/main.php';
     }
 }
