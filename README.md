@@ -1,13 +1,13 @@
 # Caminho Seguro Web
 
 ## Descrição do Projeto
-O Caminho Seguro Web é um site educativo e interativo desenvolvido com o objetivo de traduzir as normas do Código de Trânsito Brasileiro (CTB) para uma linguagem acessível, visual e dinâmica[span_0](start_span)[span_0](end_span). A plataforma é voltada para jovens pedestres, ciclistas e futuros motoristas, utilizando recursos pedagógicos baseados em gamificação, como quizzes, simulações de situações reais e navegação direcionada por perfil de usuário[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span). O projeto busca tornar o aprendizado sobre educação no trânsito mais atrativo e efetivo, visando reduzir comportamentos de risco nas vias públicas por meio da conscientização digital[span_3](start_span)[span_3](end_span). 
+O Caminho Seguro Web é um site educativo e interativo desenvolvido com o objetivo de traduzir as normas do Código de Trânsito Brasileiro (CTB) para uma linguagem acessível, visual e dinâmica. A plataforma é voltada para jovens pedestres, ciclistas e futuros motoristas, utilizando recursos pedagógicos baseados em gamificação, como quizzes, simulações de situações reais e navegação direcionada por perfil de usuário. O projeto busca tornar o aprendizado sobre educação no trânsito mais atrativo e efetivo, visando reduzir comportamentos de risco nas vias públicas por meio da conscientização digital.
 
 ## Membros da Equipe
-* Paola de Azevedo Rodrigues[span_4](start_span)[span_4](end_span)
-* Pedro Henrique Prates Almeida[span_5](start_span)[span_5](end_span)
-* Sarah Victoria Soares Farias[span_6](start_span)[span_6](end_span)
-* Thalisson Caio Ribeiro Santos[span_7](start_span)[span_7](end_span)
+* Paola de Azevedo Rodrigues
+* Pedro Henrique Prates Almeida
+* Sarah Victoria Soares Farias
+* Thalisson Caio Ribeiro Santos
 
 ## Instruções de Execução
 1. Certifique-se de possuir um ambiente de desenvolvimento local (como XAMPP) com suporte a PHP e MySQL.
