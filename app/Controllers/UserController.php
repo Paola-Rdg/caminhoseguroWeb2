@@ -158,7 +158,17 @@ class UserController
 
     private function render(string $view, array $data = []): void
     {
-        extract($data);
-        require __DIR__ . '/../Views/layouts/main.php';
+        $base = __DIR__ . '/../Views/';
+
+        $renderFile = static function (string $__file, array $__data): string {
+            extract($__data, EXTR_SKIP);
+            ob_start();
+            require $__file;
+            return ob_get_clean();
+        };
+
+        $content = $renderFile($base . $view . '.php', $data);
+        $vars = $data + ['content' => $content];
+        echo $renderFile($base . 'layouts/main.php', $vars);
     }
 }
