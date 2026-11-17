@@ -1,5 +1,10 @@
 <?php
+
 declare(strict_types=1);
+
+require_once __DIR__ . '/../config/Database.php';
+
+// ... restante do código original do index.php continua aqui embaixo
 // 0) Caminho base: '/projeto_mvc' em subpasta, '' em VirtualHost
 $base = dirname(dirname($_SERVER['SCRIPT_NAME']));
 define('BASE_URL', rtrim(str_replace('\\', '/', $base), '/'));
