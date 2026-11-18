@@ -10,9 +10,9 @@
         </div>
     </div>
 
-    <script src="/caminhoseguroWeb2-1/public/vendor/jquery/jquery.min.js"></script>
-    <script src="/caminhoseguroWeb2-1/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/caminhoseguroWeb2-1/public/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="/caminhoseguroWeb2-1/public/js/sb-admin-2.min.js"></script>
+    <script src="/caminhoseguroWeb2/public/vendor/jquery/jquery.min.js"></script>
+    <script src="/caminhoseguroWeb2/public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/caminhoseguroWeb2/public/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/caminhoseguroWeb2/public/js/sb-admin-2.min.js"></script>
 </body>
 </html>

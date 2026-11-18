@@ -15,7 +15,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="/caminhoseguroWeb2-1/conteudo/store" method="POST">
+            <form action="/caminhoseguroWeb2/conteudo/store" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="perfil_associado">Perfil Associado</label>
@@ -49,7 +49,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Salvar Conteúdo</button>
-                <a href="/caminhoseguroWeb2-1/conteudo/index" class="btn btn-secondary">Voltar</a>
+                <a href="/caminhoseguroWeb2/conteudo/index" class="btn btn-secondary">Voltar</a>
             </form>
         </div>
     </div>

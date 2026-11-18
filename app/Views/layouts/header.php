@@ -8,7 +8,7 @@
 
     <link href="/caminhoseguroWeb2-1/public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
-    <link href="/caminhoseguroWeb2-1/public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/caminhoseguroWeb2/public/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -28,21 +28,21 @@
             <div class="sidebar-heading mt-3">Módulos</div>
 
             <li class="nav-item">
-                <a class="nav-link" href="/caminhoseguroWeb2-1/user/index">
+                <a class="nav-link" href="/caminhoseguroWeb2/user/index">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Usuários</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/caminhoseguroWeb2-1/conteudo/index">
+                <a class="nav-link" href="/caminhoseguroWeb2/conteudo/index">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Conteúdos</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/caminhoseguroWeb2-1/quiz/index">
+                <a class="nav-link" href="/caminhoseguroWeb2/quiz/index">
                     <i class="fas fa-fw fa-question-circle"></i>
                     <span>Quizzes</span>
                 </a>

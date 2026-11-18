@@ -48,7 +48,7 @@ class QuizController
             $quiz->setIdUsuario((int)$_POST['id_usuario']);
 
             if ($quiz->salvar($pdo)) {
-                header('Location: /caminhoseguroWeb2-1/quiz/index');
+                header('Location: /caminhoseguroWeb2/quiz/index');
                 exit;
             }
         }

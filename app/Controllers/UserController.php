@@ -47,7 +47,7 @@ class UserController
             $user->setPerfilInteresse($_POST['perfil_interesse']);
 
             if ($user->salvar($pdo)) {
-                header('Location: /caminhoseguroWeb2-1/user/index');
+                header('Location: /caminhoseguroWeb2/user/index');
                 exit;
             }
         }

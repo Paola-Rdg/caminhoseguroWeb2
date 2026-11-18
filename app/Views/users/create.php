@@ -15,7 +15,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="/caminhoseguroWeb2-1/user/store" method="POST">
+            <form action="/caminhoseguroWeb2/user/store" method="POST">
                 <div class="form-group">
                     <label for="nome">Nome Completo</label>
                     <input type="text" name="nome" id="nome" class="form-control" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
@@ -53,7 +53,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Salvar Cadastro</button>
-                <a href="/caminhoseguroWeb2-1/user/index" class="btn btn-secondary">Voltar</a>
+                <a href="/caminhoseguroWeb2/user/index" class="btn btn-secondary">Voltar</a>
             </form>
         </div>
     </div>

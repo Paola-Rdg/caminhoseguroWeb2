@@ -41,7 +41,7 @@ class ConteudoController
             $conteudo->setPerfilAssociado($_POST['perfil_associado']);
 
             if ($conteudo->salvar($pdo)) {
-                header('Location: /caminhoseguroWeb2-1/conteudo/index');
+                header('Location: /caminhoseguroWeb2/conteudo/index');
                 exit;
             }
         }

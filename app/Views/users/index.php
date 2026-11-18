@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 text-gray-800">Usuários Cadastrados</h1>
-        <a href="/caminhoseguroWeb2-1/user/create" class="btn btn-primary">Novo Usuário</a>
+        <a href="/caminhoseguroWeb2/user/create" class="btn btn-primary">Novo Usuário</a>
     </div>
 
     <div class="card shadow mb-4">

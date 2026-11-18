@@ -15,7 +15,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="/caminhoseguroWeb2-1/quiz/store" method="POST">
+            <form action="/caminhoseguroWeb2/quiz/store" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="perfil_associado">Perfil Associado</label>
@@ -57,7 +57,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-success">Salvar Quiz</button>
-                <a href="/caminhoseguroWeb2-1/quiz/index" class="btn btn-secondary">Voltar</a>
+                <a href="/caminhoseguroWeb2/quiz/index" class="btn btn-secondary">Voltar</a>
             </form>
         </div>
     </div>

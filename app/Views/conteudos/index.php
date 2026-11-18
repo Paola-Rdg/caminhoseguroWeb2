@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 text-gray-800">Conteúdos Educativos</h1>
-        <a href="/caminhoseguroWeb2-1/conteudo/create" class="btn btn-primary">Novo Conteúdo</a>
+        <a href="/caminhoseguroWeb2/conteudo/create" class="btn btn-primary">Novo Conteúdo</a>
     </div>
 
     <div class="card shadow mb-4">
