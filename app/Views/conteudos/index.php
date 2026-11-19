@@ -12,31 +12,27 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Perfil Associado</th>
+                            <th>Perfil</th>
                             <th>Palavras-chave</th>
                             <th>Texto Explicativo</th>
-                            <th>Infográfico / Vídeo</th>
+                            <th>Recursos</th>
+                            <th width="160">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($conteudos)): ?>
                             <?php foreach ($conteudos as $c): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($c['id_conteudo']) ?></td>
-                                    <td><?= htmlspecialchars($c['perfil_associado']) ?></td>
+                                    <td><span class="badge badge-primary"><?= htmlspecialchars($c['perfil_associado']) ?></span></td>
                                     <td><?= htmlspecialchars($c['palavras_chave']) ?></td>
                                     <td><?= htmlspecialchars(mb_strimwidth($c['textos'], 0, 80, '...')) ?></td>
                                     <td>
-                                        <?php if (!empty($c['infograficos'])): ?>
-                                            <span class="badge badge-info">Infográfico</span>
-                                        <?php endif; ?>
-                                        <?php if (!empty($c['videos'])): ?>
-                                            <span class="badge badge-success">Vídeo</span>
-                                        <?php endif; ?>
-                                        <?php if (empty($c['infograficos']) && empty($c['videos'])): ?>
-                                            <span class="text-muted">Apenas texto</span>
-                                        <?php endif; ?>
+                                        <?php if (!empty($c['infograficos'])): ?><span class="badge badge-info">Infográfico</span><?php endif; ?>
+                                        <?php if (!empty($c['videos'])): ?><span class="badge badge-success">Vídeo</span><?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="/caminhoseguroWeb2/conteudo/edit/<?= $c['id_conteudo'] ?>" class="btn btn-sm btn-warning text-dark">Editar</a>
+                                        <a href="/caminhoseguroWeb2/conteudo/delete/<?= $c['id_conteudo'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Excluir este conteúdo?');">Excluir</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

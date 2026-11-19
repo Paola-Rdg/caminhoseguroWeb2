@@ -4,7 +4,7 @@ namespace App\Validators;
 
 class UserValidator
 {
-    public static function validar($dados)
+    public static function validar($dados, $senhaObrigatoria = true)
     {
         $erros = [];
 
@@ -13,17 +13,17 @@ class UserValidator
         }
 
         $email = trim($dados['email'] ?? '');
-        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $erros[] = "Informe um e-mail válido.";
+        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erros[] = "Informe um endereço de e-mail válido.";
         }
 
-        if (empty($dados['senha'] ?? '')) {
+        if ($senhaObrigatoria && empty($dados['senha'] ?? '')) {
             $erros[] = "A senha é obrigatória.";
         }
 
         $cpf = preg_replace('/[^0-9]/', '', $dados['cpf'] ?? '');
         if (strlen($cpf) !== 11) {
-            $erros[] = "O CPF deve conter 11 dígitos.";
+            $erros[] = "O CPF deve conter exatamente 11 dígitos.";
         }
 
         if (empty($dados['data_nascimento'] ?? '')) {

@@ -17,16 +17,15 @@
         <div class="card-body">
             <form action="/caminhoseguroWeb2/quiz/store" method="POST">
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="perfil_associado">Perfil Associado</label>
                         <select name="perfil_associado" id="perfil_associado" class="form-control" required>
-                            <option value="">Selecione...</option>
                             <option value="Pedestre">Pedestre</option>
                             <option value="Ciclista">Ciclista</option>
                             <option value="Motorista">Motorista</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label for="nivel_dificuldade">Nível de Dificuldade</label>
                         <select name="nivel_dificuldade" id="nivel_dificuldade" class="form-control" required>
                             <option value="1">1 - Fácil</option>
@@ -34,20 +33,11 @@
                             <option value="3">3 - Difícil</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="id_usuario">Usuário Responsável</label>
-                        <select name="id_usuario" id="id_usuario" class="form-control" required>
-                            <option value="">Selecione...</option>
-                            <?php foreach ($usuarios as $u): ?>
-                                <option value="<?= $u['id_usuario'] ?>"><?= htmlspecialchars($u['nome']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="quant_perguntas">Quantidade de Perguntas</label>
+                        <label for="quant_perguntas">Quantidade Prevista de Perguntas</label>
                         <input type="number" name="quant_perguntas" id="quant_perguntas" class="form-control" min="1" required>
                     </div>
                     <div class="form-group col-md-6">

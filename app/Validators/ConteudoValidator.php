@@ -9,15 +9,15 @@ class ConteudoValidator
         $erros = [];
 
         if (empty(trim($dados['textos'] ?? ''))) {
-            $erros[] = "O texto explicativo do conteúdo é obrigatório.";
+            $erros[] = "O texto explicativo é obrigatório.";
         }
 
         if (empty(trim($dados['palavras_chave'] ?? ''))) {
-            $erros[] = "Informe pelo menos uma palavra-chave.";
+            $erros[] = "Informe as palavras-chave do conteúdo.";
         }
 
         if (empty($dados['perfil_associado'] ?? '')) {
-            $erros[] = "Selecione o perfil associado ao conteúdo.";
+            $erros[] = "Selecione o perfil associado.";
         }
 
         return $erros;

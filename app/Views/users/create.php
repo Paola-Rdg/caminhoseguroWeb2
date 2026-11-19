@@ -16,15 +16,24 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <form action="/caminhoseguroWeb2/user/store" method="POST">
-                <div class="form-group">
-                    <label for="nome">Nome Completo</label>
-                    <input type="text" name="nome" id="nome" class="form-control" value="<?= htmlspecialchars($_POST['nome'] ?? '') ?>" required>
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" name="nome" id="nome" class="form-control" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="tipo_usuario">Tipo de Usuário</label>
+                        <select name="tipo_usuario" id="tipo_usuario" class="form-control">
+                            <option value="comum">Usuário Comum</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required>
+                        <input type="email" name="email" id="email" class="form-control" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="senha">Senha</label>
@@ -35,19 +44,18 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="cpf">CPF</label>
-                        <input type="text" name="cpf" id="cpf" class="form-control" maxlength="14" value="<?= htmlspecialchars($_POST['cpf'] ?? '') ?>" required>
+                        <input type="text" name="cpf" id="cpf" class="form-control" maxlength="14" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="data_nascimento">Data de Nascimento</label>
-                        <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" value="<?= htmlspecialchars($_POST['data_nascimento'] ?? '') ?>" required>
+                        <input type="date" name="data_nascimento" id="data_nascimento" class="form-control" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="perfil_interesse">Perfil de Interesse</label>
                         <select name="perfil_interesse" id="perfil_interesse" class="form-control" required>
-                            <option value="">Selecione...</option>
                             <option value="Pedestre">Pedestre</option>
                             <option value="Ciclista">Ciclista</option>
-                            <option value="Motorista">Futuro Motorista</option>
+                            <option value="Motorista">Motorista</option>
                         </select>
                     </div>
                 </div>

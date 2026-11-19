@@ -17,34 +17,33 @@
         <div class="card-body">
             <form action="/caminhoseguroWeb2/conteudo/store" method="POST">
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="perfil_associado">Perfil Associado</label>
                         <select name="perfil_associado" id="perfil_associado" class="form-control" required>
-                            <option value="">Selecione...</option>
                             <option value="Pedestre">Pedestre</option>
                             <option value="Ciclista">Ciclista</option>
                             <option value="Motorista">Motorista</option>
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-8">
                         <label for="palavras_chave">Palavras-chave</label>
-                        <input type="text" name="palavras_chave" id="palavras_chave" class="form-control" placeholder="Ex: faixa de pedestres, semáforo, travessia" value="<?= htmlspecialchars($_POST['palavras_chave'] ?? '') ?>" required>
+                        <input type="text" name="palavras_chave" id="palavras_chave" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="textos">Texto Explicativo</label>
-                    <textarea name="textos" id="textos" rows="5" class="form-control" required><?= htmlspecialchars($_POST['textos'] ?? '') ?></textarea>
+                    <label for="textos">Texto Explicativo (CTB)</label>
+                    <textarea name="textos" id="textos" rows="5" class="form-control" required></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="infograficos">Link ou Caminho do Infográfico (opcional)</label>
-                        <input type="text" name="infograficos" id="infograficos" class="form-control" value="<?= htmlspecialchars($_POST['infograficos'] ?? '') ?>">
+                        <label for="infograficos">Link do Infográfico (opcional)</label>
+                        <input type="text" name="infograficos" id="infograficos" class="form-control">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="videos">Link do Vídeo (opcional)</label>
-                        <input type="text" name="videos" id="videos" class="form-control" value="<?= htmlspecialchars($_POST['videos'] ?? '') ?>">
+                        <input type="text" name="videos" id="videos" class="form-control">
                     </div>
                 </div>
 

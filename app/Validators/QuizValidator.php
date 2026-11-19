@@ -17,15 +17,11 @@ class QuizValidator
         }
 
         if (empty($dados['pontuacao_total']) || (float)$dados['pontuacao_total'] <= 0) {
-            $erros[] = "Informe uma pontuação total válida.";
+            $erros[] = "A pontuação total deve ser maior que zero.";
         }
 
         if (empty($dados['perfil_associado'])) {
             $erros[] = "Selecione o perfil associado ao quiz.";
-        }
-
-        if (empty($dados['id_usuario'])) {
-            $erros[] = "Selecione o usuário responsável.";
         }
 
         return $erros;
