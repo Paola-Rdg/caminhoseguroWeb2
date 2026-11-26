@@ -12,6 +12,7 @@ class Conteudo
     private $videos;
     private $palavras_chave;
     private $perfil_associado;
+    private $id_usuario;
 
     public function __construct($dados = [])
     {
@@ -22,66 +23,37 @@ class Conteudo
             $this->videos = trim($dados['videos'] ?? '');
             $this->palavras_chave = trim($dados['palavras_chave'] ?? '');
             $this->perfil_associado = $dados['perfil_associado'] ?? '';
+            $this->id_usuario = (int)($dados['id_usuario'] ?? 0);
         }
     }
 
-    public function getIdConteudo()
-    {
-        return $this->id_conteudo;
-    }
-    public function setIdConteudo($id)
-    {
-        $this->id_conteudo = $id;
-    }
+    public function getIdConteudo() { return $this->id_conteudo; }
+    public function setIdConteudo($id) { $this->id_conteudo = $id; }
 
-    public function getTextos()
-    {
-        return $this->textos;
-    }
-    public function setTextos($textos)
-    {
-        $this->textos = $textos;
-    }
+    public function getTextos() { return $this->textos; }
+    public function setTextos($textos) { $this->textos = $textos; }
 
-    public function getInfograficos()
-    {
-        return $this->infograficos;
-    }
-    public function setInfograficos($infograficos)
-    {
-        $this->infograficos = $infograficos;
-    }
+    public function getInfograficos() { return $this->infograficos; }
+    public function setInfograficos($infograficos) { $this->infograficos = $infograficos; }
 
-    public function getVideos()
-    {
-        return $this->videos;
-    }
-    public function setVideos($videos)
-    {
-        $this->videos = $videos;
-    }
+    public function getVideos() { return $this->videos; }
+    public function setVideos($videos) { $this->videos = $videos; }
 
-    public function getPalavrasChave()
-    {
-        return $this->palavras_chave;
-    }
-    public function setPalavrasChave($palavras)
-    {
-        $this->palavras_chave = $palavras;
-    }
+    public function getPalavrasChave() { return $this->palavras_chave; }
+    public function setPalavrasChave($palavras) { $this->palavras_chave = $palavras; }
 
-    public function getPerfilAssociado()
-    {
-        return $this->perfil_associado;
-    }
-    public function setPerfilAssociado($perfil)
-    {
-        $this->perfil_associado = $perfil;
-    }
+    public function getPerfilAssociado() { return $this->perfil_associado; }
+    public function setPerfilAssociado($perfil) { $this->perfil_associado = $perfil; }
+
+    public function getIdUsuario() { return $this->id_usuario; }
+    public function setIdUsuario($idUsuario) { $this->id_usuario = (int)$idUsuario; }
 
     public function listarTodos($pdo)
     {
-        $sql = "SELECT * FROM conteudo ORDER BY id_conteudo DESC";
+        $sql = "SELECT c.*, u.nome AS autor 
+                FROM conteudo c 
+                INNER JOIN usuario u ON c.id_usuario = u.id_usuario 
+                ORDER BY c.id_conteudo DESC";
         $stmt = $pdo->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -114,15 +86,16 @@ class Conteudo
 
     public function salvar($pdo)
     {
-        $sql = "INSERT INTO conteudo (textos, infograficos, videos, palavras_chave, perfil_associado) 
-                VALUES (:textos, :infograficos, :videos, :palavras_chave, :perfil_associado)";
+        $sql = "INSERT INTO conteudo (textos, infograficos, videos, palavras_chave, perfil_associado, id_usuario) 
+                VALUES (:textos, :infograficos, :videos, :palavras_chave, :perfil_associado, :id_usuario)";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
             ':textos' => $this->textos,
             ':infograficos' => $this->infograficos !== '' ? $this->infograficos : null,
             ':videos' => $this->videos !== '' ? $this->videos : null,
             ':palavras_chave' => $this->palavras_chave,
-            ':perfil_associado' => $this->perfil_associado
+            ':perfil_associado' => $this->perfil_associado,
+            ':id_usuario' => $this->id_usuario
         ]);
     }
 

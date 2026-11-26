@@ -25,59 +25,23 @@ class Quiz
         }
     }
 
-    public function getIdQuiz()
-    {
-        return $this->id_quiz;
-    }
-    public function setIdQuiz($id)
-    {
-        $this->id_quiz = $id;
-    }
+    public function getIdQuiz() { return $this->id_quiz; }
+    public function setIdQuiz($id) { $this->id_quiz = $id; }
 
-    public function getQuantPerguntas()
-    {
-        return $this->quant_perguntas;
-    }
-    public function setQuantPerguntas($qtd)
-    {
-        $this->quant_perguntas = $qtd;
-    }
+    public function getQuantPerguntas() { return $this->quant_perguntas; }
+    public function setQuantPerguntas($qtd) { $this->quant_perguntas = $qtd; }
 
-    public function getNivelDificuldade()
-    {
-        return $this->nivel_dificuldade;
-    }
-    public function setNivelDificuldade($nivel)
-    {
-        $this->nivel_dificuldade = $nivel;
-    }
+    public function getNivelDificuldade() { return $this->nivel_dificuldade; }
+    public function setNivelDificuldade($nivel) { $this->nivel_dificuldade = $nivel; }
 
-    public function getPontuacaoTotal()
-    {
-        return $this->pontuacao_total;
-    }
-    public function setPontuacaoTotal($pontos)
-    {
-        $this->pontuacao_total = $pontos;
-    }
+    public function getPontuacaoTotal() { return $this->pontuacao_total; }
+    public function setPontuacaoTotal($pontos) { $this->pontuacao_total = $pontos; }
 
-    public function getPerfilAssociado()
-    {
-        return $this->perfil_associado;
-    }
-    public function setPerfilAssociado($perfil)
-    {
-        $this->perfil_associado = $perfil;
-    }
+    public function getPerfilAssociado() { return $this->perfil_associado; }
+    public function setPerfilAssociado($perfil) { $this->perfil_associado = $perfil; }
 
-    public function getIdUsuario()
-    {
-        return $this->id_usuario;
-    }
-    public function setIdUsuario($id)
-    {
-        $this->id_usuario = $id;
-    }
+    public function getIdUsuario() { return $this->id_usuario; }
+    public function setIdUsuario($id) { $this->id_usuario = $id; }
 
     public function listarTodos($pdo)
     {
@@ -144,29 +108,5 @@ class Quiz
         $sql = "DELETE FROM quiz WHERE id_quiz = :id";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([':id' => $id]);
-    }
-
-    public function registrarResultado($pdo, $idUsuario, $idQuiz, $pontuacaoObtida)
-    {
-        $sql = "INSERT INTO resultado_quiz (id_usuario, id_quiz, pontuacao_obtida) 
-                VALUES (:id_usuario, :id_quiz, :pontuacao)";
-        $stmt = $pdo->prepare($sql);
-        return $stmt->execute([
-            ':id_usuario' => $idUsuario,
-            ':id_quiz' => $idQuiz,
-            ':pontuacao' => $pontuacaoObtida
-        ]);
-    }
-
-    public function listarDesempenhoUsuario($pdo, $idUsuario)
-    {
-        $sql = "SELECT r.*, q.perfil_associado, q.nivel_dificuldade, q.pontuacao_total 
-                FROM resultado_quiz r 
-                INNER JOIN quiz q ON r.id_quiz = q.id_quiz 
-                WHERE r.id_usuario = :id_usuario 
-                ORDER BY r.data_realizacao DESC";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([':id_usuario' => $idUsuario]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -51,6 +51,8 @@ class ConteudoController extends BaseController
             }
 
             $conteudo = new Conteudo($_POST);
+            $conteudo->setIdUsuario((int)$_SESSION['usuario_id']);
+
             if ($conteudo->salvar($this->pdo)) {
                 $this->redirect('conteudo/index');
             }

@@ -19,7 +19,9 @@ CREATE TABLE conteudo (
     infograficos VARCHAR(255),
     videos VARCHAR(255),
     palavras_chave VARCHAR(150) NOT NULL,
-    perfil_associado VARCHAR(30) NOT NULL
+    perfil_associado VARCHAR(30) NOT NULL,
+    id_usuario INT NOT NULL,
+    CONSTRAINT fk_conteudo_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE quiz (
@@ -50,25 +52,15 @@ CREATE TABLE alternativas (
     CONSTRAINT fk_alternativa_pergunta FOREIGN KEY (id_pergunta) REFERENCES perguntas_quiz(id_pergunta) ON DELETE CASCADE
 );
 
-CREATE TABLE resultado_quiz (
-    id_resultado INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    id_quiz INT NOT NULL,
-    pontuacao_obtida FLOAT NOT NULL,
-    data_realizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_res_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) ON DELETE CASCADE,
-    CONSTRAINT fk_res_quiz FOREIGN KEY (id_quiz) REFERENCES quiz(id_quiz) ON DELETE CASCADE
-);
-
--- Contas iniciais (Senha de ambas: 123456 em MD5 - RNF003)
+-- Contas iniciais (Senha de ambas: 123456 em MD5)
 INSERT INTO usuario (nome, email, senha, cpf, data_nascimento, perfil_interesse, tipo_usuario) VALUES
 ('Administrador Caminho Seguro', 'admin@caminhoseguro.com', MD5('123456'), '00000000000', '2000-01-01', 'Motorista', 'admin'),
 ('Estudante Exemplo', 'aluno@caminhoseguro.com', MD5('123456'), '11111111111', '2009-04-15', 'Pedestre', 'comum');
 
-INSERT INTO conteudo (textos, infograficos, videos, palavras_chave, perfil_associado) VALUES
-('Conforme o Art. 69 do CTB, para cruzar a pista de rolamento o pedestre deve tomar precauções de segurança, observando a visibilidade, a distância e a velocidade dos veículos, utilizando sempre as faixas ou passagens destinadas a ele sempre que existirem a uma distância de até 50 metros.', 'https://www.gov.br/transportes/pt-br', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'faixa de pedestres, travessia, art 69, semaforo', 'Pedestre'),
-('De acordo com o Art. 58 do CTB, nas vias urbanas e nas rurais de pista dupla, a circulação de bicicletas deve ocorrer, quando não houver ciclovia ou ciclofaixa, nos bordos da pista de rolamento, no mesmo sentido de circulação regulamentado para a via, com preferência sobre os veículos automotores.', '', '', 'bicicleta, ciclovia, bordo da pista, art 58', 'Ciclista'),
-('Segundo o Art. 201 do CTB, deixar de guardar a distância lateral de um metro e cinquenta centímetros (1,50m) ao passar ou ultrapassar bicicleta configura infração média. Além disso, o Art. 38 exige atenção redobrada em rotatórias e conversões.', '', '', 'distancia lateral, ciclista, rotatoria, art 201', 'Motorista');
+INSERT INTO conteudo (textos, infograficos, videos, palavras_chave, perfil_associado, id_usuario) VALUES
+('Conforme o Art. 69 do CTB, para cruzar a pista de rolamento o pedestre deve tomar precauções de segurança, observando a visibilidade, a distância e a velocidade dos veículos, utilizando sempre as faixas ou passagens destinadas a ele sempre que existirem a uma distância de até 50 metros.', 'https://www.gov.br/transportes/pt-br', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'faixa de pedestres, travessia, art 69, semaforo', 'Pedestre', 1),
+('De acordo com o Art. 58 do CTB, nas vias urbanas e nas rurais de pista dupla, a circulação de bicicletas deve ocorrer, quando não houver ciclovia ou ciclofaixa, nos bordos da pista de rolamento, no mesmo sentido de circulação regulamentado para a via, com preferência sobre os veículos automotores.', '', '', 'bicicleta, ciclovia, bordo da pista, art 58', 'Ciclista', 1),
+('Segundo o Art. 201 do CTB, deixar de guardar a distância lateral de um metro e cinquenta centímetros (1,50m) ao passar ou ultrapassar bicicleta configura infração média. Além disso, o Art. 38 exige atenção redobrada em rotatórias e conversões.', '', '', 'distancia lateral, ciclista, rotatoria, art 201', 'Motorista', 1);
 
 INSERT INTO quiz (quant_perguntas, nivel_dificuldade, pontuacao_total, perfil_associado, id_usuario) VALUES
 (2, 1, 10.0, 'Pedestre', 1),

@@ -121,6 +121,41 @@ class QuizController extends BaseController
         ]);
     }
 
+    public function editarPergunta($idPergunta, $idQuiz)
+    {
+        $this->exigirAdmin();
+        $idPergunta = (int)$idPergunta;
+        $idQuiz = (int)$idQuiz;
+
+        $quizModel = new Quiz();
+        $perguntaModel = new PerguntaQuiz();
+
+        $quiz = $quizModel->buscarPorId($this->pdo, $idQuiz);
+        $pergunta = $perguntaModel->buscarPorId($this->pdo, $idPergunta);
+
+        if (!$quiz || !$pergunta) {
+            $this->redirect('quiz/index');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $textoPergunta = trim($_POST['texto_pergunta'] ?? '');
+            $pontuacao = (float)($_POST['pontuacao'] ?? 1);
+            $explicacao = trim($_POST['explicacao'] ?? '');
+            $alternativas = $_POST['alternativas'] ?? [];
+            $correta = $_POST['correta'] ?? 0;
+
+            if ($textoPergunta !== '' && $explicacao !== '') {
+                $perguntaModel->atualizarComAlternativas($this->pdo, $idPergunta, $textoPergunta, $pontuacao, $explicacao, $alternativas, $correta);
+                $this->redirect('quiz/perguntas/' . $idQuiz);
+            }
+        }
+
+        $this->render('quizzes/editar_pergunta', [
+            'quiz' => $quiz,
+            'pergunta' => $pergunta
+        ]);
+    }
+
     public function excluirPergunta($idPergunta, $idQuiz)
     {
         $this->exigirAdmin();
@@ -189,7 +224,17 @@ class QuizController extends BaseController
             ];
         }
 
-        $quizModel->registrarResultado($this->pdo, (int)$_SESSION['usuario_id'], $idQuiz, $pontuacaoObtida);
+        if (!isset($_SESSION['historico_quizzes'])) {
+            $_SESSION['historico_quizzes'] = [];
+        }
+
+        array_unshift($_SESSION['historico_quizzes'], [
+            'data_realizacao' => date('Y-m-d H:i:s'),
+            'perfil_associado' => $quiz['perfil_associado'],
+            'nivel_dificuldade' => $quiz['nivel_dificuldade'],
+            'pontuacao_obtida' => $pontuacaoObtida,
+            'pontuacao_total' => $quiz['pontuacao_total']
+        ]);
 
         $this->render('quizzes/resultado', [
             'quiz' => $quiz,
@@ -201,8 +246,7 @@ class QuizController extends BaseController
     public function desempenho()
     {
         $this->exigirLogin();
-        $quizModel = new Quiz();
-        $historico = $quizModel->listarDesempenhoUsuario($this->pdo, (int)$_SESSION['usuario_id']);
+        $historico = $_SESSION['historico_quizzes'] ?? [];
 
         $this->render('quizzes/desempenho', ['historico' => $historico]);
     }
